@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
     {
         List<KeyValuePair<int, string>> readList = new List<KeyValuePair<int, string>>();
         SerialPort sp = new SerialPort();
+        Color[] btnColor = new Color[101];
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -65,6 +66,16 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            int red = 0;
+            int blue = 255;
+            for (int i = 0; i < 101; i++)
+            {
+                btnColor[i] = Color.FromArgb(red, 0, blue);
+                if (red < 255)
+                    red += 5;
+                if (red >= 255)
+                    blue -= 5;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -374,6 +385,36 @@ namespace WindowsFormsApp1
                 }
             }
             ));
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

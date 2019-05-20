@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label3 = new System.Windows.Forms.Label();
             this.PortName = new System.Windows.Forms.TextBox();
             this.OpenBtn = new System.Windows.Forms.Button();
@@ -61,6 +62,12 @@
             this.Data = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SelectDataType = new System.Windows.Forms.ComboBox();
             this.CellImage = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CellImage)).BeginInit();
@@ -113,7 +120,7 @@
             // 
             // SendText
             // 
-            this.SendText.Location = new System.Drawing.Point(12, 395);
+            this.SendText.Location = new System.Drawing.Point(12, 425);
             this.SendText.Name = "SendText";
             this.SendText.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.SendText.Size = new System.Drawing.Size(129, 21);
@@ -122,6 +129,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 84);
             this.label4.Name = "label4";
@@ -149,6 +157,7 @@
             // 
             // DataBits
             // 
+            this.DataBits.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.DataBits.FormattingEnabled = true;
             this.DataBits.Items.AddRange(new object[] {
             "5",
@@ -210,7 +219,7 @@
             // 
             // SendBtn
             // 
-            this.SendBtn.Location = new System.Drawing.Point(142, 395);
+            this.SendBtn.Location = new System.Drawing.Point(142, 425);
             this.SendBtn.Name = "SendBtn";
             this.SendBtn.Size = new System.Drawing.Size(75, 23);
             this.SendBtn.TabIndex = 6;
@@ -368,7 +377,7 @@
             this.ReceiveTextBox.Location = new System.Drawing.Point(238, 12);
             this.ReceiveTextBox.Name = "ReceiveTextBox";
             this.ReceiveTextBox.ReadOnly = true;
-            this.ReceiveTextBox.Size = new System.Drawing.Size(394, 377);
+            this.ReceiveTextBox.Size = new System.Drawing.Size(394, 434);
             this.ReceiveTextBox.TabIndex = 23;
             this.ReceiveTextBox.Text = "";
             // 
@@ -379,7 +388,7 @@
             this.Data});
             this.DataView.Location = new System.Drawing.Point(1087, 38);
             this.DataView.Name = "DataView";
-            this.DataView.Size = new System.Drawing.Size(219, 376);
+            this.DataView.Size = new System.Drawing.Size(219, 408);
             this.DataView.TabIndex = 24;
             this.DataView.UseCompatibleStateImageBehavior = false;
             this.DataView.View = System.Windows.Forms.View.Details;
@@ -410,19 +419,86 @@
             // 
             // CellImage
             // 
+            this.CellImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CellImage.BackgroundImage")));
             this.CellImage.ErrorImage = null;
             this.CellImage.InitialImage = null;
             this.CellImage.Location = new System.Drawing.Point(638, 12);
             this.CellImage.Name = "CellImage";
-            this.CellImage.Size = new System.Drawing.Size(434, 377);
+            this.CellImage.Size = new System.Drawing.Size(434, 434);
             this.CellImage.TabIndex = 26;
             this.CellImage.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button1.Location = new System.Drawing.Point(753, 317);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 31);
+            this.button1.TabIndex = 27;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button2.Location = new System.Drawing.Point(753, 202);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 31);
+            this.button2.TabIndex = 27;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button3.Location = new System.Drawing.Point(753, 90);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(92, 31);
+            this.button3.TabIndex = 27;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button4.Location = new System.Drawing.Point(871, 317);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(92, 31);
+            this.button4.TabIndex = 27;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button5.Location = new System.Drawing.Point(871, 202);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(92, 31);
+            this.button5.TabIndex = 27;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button6.Location = new System.Drawing.Point(871, 90);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(92, 31);
+            this.button6.TabIndex = 27;
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1314, 429);
+            this.ClientSize = new System.Drawing.Size(1314, 450);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CellImage);
             this.Controls.Add(this.SelectDataType);
             this.Controls.Add(this.DataView);
@@ -479,6 +555,12 @@
         private System.Windows.Forms.ColumnHeader Data;
         private System.Windows.Forms.ComboBox SelectDataType;
         private System.Windows.Forms.PictureBox CellImage;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 
