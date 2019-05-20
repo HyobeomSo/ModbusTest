@@ -80,8 +80,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="EssImages\" />
+    <Content Include="EssImages\ESS_F1.jpg" />
+    <Content Include="EssImages\ESS_F2.jpg" />
+    <Content Include="EssImages\ESS_R1.jpg" />
+    <Content Include="EssImages\ESS_R2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

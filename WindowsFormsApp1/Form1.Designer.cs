@@ -422,7 +422,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1314, 586);
+            this.ClientSize = new System.Drawing.Size(1314, 429);
             this.Controls.Add(this.CellImage);
             this.Controls.Add(this.SelectDataType);
             this.Controls.Add(this.DataView);

@@ -69,7 +69,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CellImage.Load("../../EssImages/ess.png");
+            CellImage.Load("..\\..\\EssImages\\ESS_F1.png");
             CellImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
