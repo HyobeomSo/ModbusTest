@@ -73,22 +73,22 @@ namespace WindowsFormsApp1
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void OpenBtn_Click(object sender, EventArgs e)
         {
             sp.Close();
-            sp.PortName = textBox1.Text;
-            sp.BaudRate = Convert.ToInt32(comboBox4.Text);
-            sp.DataBits = Convert.ToInt32(comboBox1.Text);
-            int temp = Convert.ToInt32(comboBox2.Text);
+            sp.PortName = PortName.Text;
+            sp.BaudRate = Convert.ToInt32(BaudRate.Text);
+            sp.DataBits = Convert.ToInt32(DataBits.Text);
+            int temp = Convert.ToInt32(StopBits.Text);
             if (temp == 1)
             {
-                sp.StopBits = StopBits.One;
+                sp.StopBits = System.IO.Ports.StopBits.One;
             }
             else
             {
-                sp.StopBits = StopBits.Two;
+                sp.StopBits = System.IO.Ports.StopBits.Two;
             }
-            String s = comboBox3.Text;
+            String s = ParityBits.Text;
             if (s == "Even")
             {
                 sp.Parity = Parity.Even;
@@ -118,7 +118,7 @@ namespace WindowsFormsApp1
 
             this.Invoke(new Action(delegate ()
                 {
-                    if (comboBox5.SelectedIndex + 1 == 4)
+                    if (M_Function.SelectedIndex + 1 == 4)
                         addr = 30000;
                     else
                         addr = 40000;
@@ -144,11 +144,11 @@ namespace WindowsFormsApp1
                 {
                     this.Invoke(new Action(delegate ()
                     {
-                        richTextBox3.AppendText("LRC Error\n");
+                        ReceiveTextBox.AppendText("LRC Error\n");
                     }));
                     return;
                 }
-                if (radioButton1.Checked)
+                if (AsciiBtn.Checked)
                 {
                     for (int i = 1; i < 7; i++)
                         data += Convert.ToChar(buff[i]);
@@ -173,45 +173,45 @@ namespace WindowsFormsApp1
                 }
                 this.Invoke(new Action(delegate ()
                 {
-                    richTextBox3.AppendText("[수신] " + lrcChk + lrc + "\n");
-                    richTextBox3.ScrollToCaret();
+                    ReceiveTextBox.AppendText("[수신] " + lrcChk + lrc + "\n");
+                    ReceiveTextBox.ScrollToCaret();
                 }));
             }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void SendBtn_Click(object sender, EventArgs e)
         {
             if (!sp.IsOpen)
             {
                 MessageBox.Show("Not Connected");
                 return;
             }
-            if (radioButton1.Checked)
+            if (AsciiBtn.Checked)
             {
-                sp.Write(":" + textBox6.Text + "\r\n");
+                sp.Write(":" + SendText.Text + "\r\n");
             }
             else
             {
-                string msg = textBox6.Text;
+                string msg = SendText.Text;
                 byte[] temp = new byte[msg.Length / 2];
-                for (int i = 0; i < textBox6.Text.Length; i += 2)
+                for (int i = 0; i < SendText.Text.Length; i += 2)
                 {
                     temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
                 }
                 sp.Write(temp, 0, temp.Length);
 
             }
-            richTextBox3.AppendText("[송신] " + textBox6.Text + '\n');
-            richTextBox3.ScrollToCaret();
-            textBox6.Clear();
+            ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+            ReceiveTextBox.ScrollToCaret();
+            SendText.Clear();
             readList.Clear();
         }
 
-        private void TextBox6_KeyPress(object sender, KeyPressEventArgs e)
+        private void SendText_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
             {
-                Button3_Click(sender, e);
+                SendBtn_Click(sender, e);
             }
         }
 
@@ -230,35 +230,35 @@ namespace WindowsFormsApp1
             sum += 1;
             return sum.ToString("X");
         }
-        private void Button4_Click(object sender, EventArgs e)
+        private void ModbusGen(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (AsciiBtn.Checked)
             {
-                int id = Convert.ToInt32(textBox2.Text);
-                int ofs = Convert.ToInt32(textBox3.Text);
-                int len = Convert.ToInt32(textBox4.Text);
+                int id = Convert.ToInt32(M_SlaveID.Text);
+                int ofs = Convert.ToInt32(M_Offset.Text);
+                int len = Convert.ToInt32(M_Length.Text);
                 string s = (id.ToString("X").PadLeft(2, '0')) +
-                    (comboBox5.SelectedIndex + 1).ToString().PadLeft(2, '0') +
+                    (M_Function.SelectedIndex + 1).ToString().PadLeft(2, '0') +
                     (ofs <= 256 ? (ofs).ToString("X").PadLeft(4, '0') : (ofs).ToString("X").PadLeft(4, '0')) +
                     (len <= 255 ? len.ToString("X").PadLeft(4, '0') : len.ToString("X").PadLeft(4, '0'));
                 string lrc = Lrc_Calc(s);
-                textBox6.Text = s + lrc;
+                SendText.Text = s + lrc;
             }
             else
             {
-                int id = Convert.ToInt32(textBox2.Text);
+                int id = Convert.ToInt32(M_SlaveID.Text);
                 string str_modid = id.ToString("X").PadLeft(2, '0');
-                string str_function = (comboBox5.SelectedIndex + 1).ToString().PadLeft(2, '0');
-                int int_offset = Convert.ToInt32(textBox3.Text) - 1;
+                string str_function = (M_Function.SelectedIndex + 1).ToString().PadLeft(2, '0');
+                int int_offset = Convert.ToInt32(M_Offset.Text) - 1;
                 string str_modoff = String.Format("{0:X4}", int_offset);
-                int int_len = Convert.ToInt32(textBox4.Text);
+                int int_len = Convert.ToInt32(M_Length.Text);
                 string str_len = string.Format("{0:X4}", int_len);
                 string str_modbus1 = str_modid + str_function + str_modoff + str_len;
                 string str_modbus2 = bytetostr(str_modbus1, "1");
                 byte[] bStrByte = Encoding.UTF8.GetBytes(str_modbus2);
                 int crc_16 = crc16(bStrByte, bStrByte.Length);
                 string str_crc = crc_16.ToString("X");
-                textBox6.Text = str_modbus1 + str_crc;
+                SendText.Text = str_modbus1 + str_crc;
             }
         }
         string hex_str;
@@ -296,40 +296,40 @@ namespace WindowsFormsApp1
             return bstrbyte2;
         }
 
-        private void ComboBox6_SelectedIndexChanged(object sender, EventArgs e)
+        private void Change_DataType(object sender, EventArgs e)
         {
             if (readList.Count != 0)
             {
-                switch (comboBox6.SelectedIndex)
+                switch (SelectDataType.SelectedIndex)
                 {
                     case 0:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(readList[i].Value);
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(readList[i].Value);
                             }
                             break;
                         }
                     case 1:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
                             }
                             break;
                         }
                     case 2:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
                                 string tem = readList[i].Value;
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(tem.Insert(2, "."));
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(tem.Insert(2, "."));
                             }
                             break;
                         }
@@ -340,36 +340,36 @@ namespace WindowsFormsApp1
         {
             this.Invoke(new Action(delegate ()
             {
-                switch (comboBox6.SelectedIndex)
+                switch (SelectDataType.SelectedIndex)
                 {
                     case 0:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(readList[i].Value);
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(readList[i].Value);
                             }
                             break;
                         }
                     case 1:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
                             }
                             break;
                         }
                     case 2:
                         {
-                            listView1.Items.Clear();
+                            DataView.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {
                                 string tem = readList[i].Value;
-                                listView1.Items.Add(readList[i].Key.ToString());
-                                listView1.Items[i].SubItems.Add(tem.Insert(2, "."));
+                                DataView.Items.Add(readList[i].Key.ToString());
+                                DataView.Items[i].SubItems.Add(tem.Insert(2, "."));
                             }
                             break;
                         }
