@@ -387,6 +387,11 @@ namespace WindowsFormsApp1
             ));
         }
 
+        private void Sensor_Temperature()
+        {
+
+        }
+
         private void Button1_Click(object sender, EventArgs e)
         {
             
