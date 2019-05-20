@@ -18,7 +18,7 @@ namespace WindowsFormsApp1
         SerialPort sp = new SerialPort();
         int min = 0;
 
-            byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
+        byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
             0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,
             0x41,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
             0x5A,0x9A,0x9B,0x5B,0x99,0x59,0x58,0x98,0x88,0x48,0x49,0x89,0x4B,0x8B,0x8A,0x4A,0x4E,0x8E,0x8F,0x4F,
             0x8D,0x4D,0x4C,0x8C,0x44,0x84,0x85,0x45,0x87,0x47,0x46,0x86,0x82,0x42,0x43,0x83,0x41,0x81,0x80,0x40
             };
-        
+
         public int crc16(byte[] modbusframe, int Length)
         {
             int i;
@@ -108,40 +108,6 @@ namespace WindowsFormsApp1
             sp.Open();
         }
 
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            sp.Close();
-        }
-
-        private void Label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ComboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         static int addr;
         private void SP_DataReceive(object sender, SerialDataReceivedEventArgs e)
         {
@@ -149,15 +115,15 @@ namespace WindowsFormsApp1
             int dataSize = sp.BytesToRead;
             string data;
             string temp;
-            
-            this.Invoke(new Action(delegate()
+
+            this.Invoke(new Action(delegate ()
                 {
                     if (comboBox5.SelectedIndex + 1 == 4)
                         addr = 30000;
                     else
                         addr = 40000;
                 }));
-            
+
             if (dataSize != 0)
             {
                 data = "";
@@ -186,7 +152,7 @@ namespace WindowsFormsApp1
                 {
                     for (int i = 1; i < 7; i++)
                         data += Convert.ToChar(buff[i]);
-                    for (int i = 7; i < dataSize - 4; i+=4)
+                    for (int i = 7; i < dataSize - 4; i += 4)
                     {
                         temp = "";
                         temp += Convert.ToChar(buff[i]);
@@ -205,57 +171,13 @@ namespace WindowsFormsApp1
                         data += bData.ToString("X").PadLeft(2, '0');
                     }
                 }
-                this.Invoke(new Action(delegate () {
+                this.Invoke(new Action(delegate ()
+                {
                     richTextBox3.AppendText("[수신] " + lrcChk + lrc + "\n");
                     richTextBox3.ScrollToCaret();
                 }));
             }
-                /*
-                if (chk % 2 == 1)
-                {
-                    baseTime.AddSeconds(1.0);
-                }
-                int dataSize = sp.BytesToRead;
-                string data;
-                if (dataSize != 0)
-                {
-                    data = "";
-                    byte[] buff = new byte[dataSize];
-                    sp.Read(buff, 0, dataSize);
-                    foreach (char bData in buff)
-                    {
-                        data += Convert.ToChar(bData);
-                    }
-                    string charIDX = "TEST" + data[1];
-                    this.Invoke(new Action(delegate ()
-                    {
-                        chart1.Series[charIDX].Points.Add(Convert.ToInt32(data.Remove(0, 2)));
-                        if (charIDX == "TEST1")
-                        {
-                            richTextBox1.AppendText(data.Remove(0, 2) + "\n");
-                            richTextBox1.ScrollToCaret();
-                        }
-                        else
-                        {
-                            richTextBox2.AppendText(data.Remove(0, 2) + "\n");
-                            richTextBox2.ScrollToCaret();
-                        }
-                        chk++;
-                    }));
-                }
-                if (count < 10 && chk == 2)
-                {
-                    chk = 0;
-                    count++;
-                }
-                else if (count == 10 && chk == 2)
-                {
-                    chk = 0;
-                    chart1.ChartAreas[0].AxisX.Minimum = min += 1;
-                    chart1.ChartAreas[0].AxisX.Maximum = min + 10;
-                }
-                */
-            }
+        }
 
         private void Button3_Click(object sender, EventArgs e)
         {
@@ -285,11 +207,6 @@ namespace WindowsFormsApp1
             readList.Clear();
         }
 
-        private void TextBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void TextBox6_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
@@ -298,15 +215,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void RichTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
         private String Lrc_Calc(String s)
         {
             int sum = 0;
@@ -388,21 +296,6 @@ namespace WindowsFormsApp1
             return bstrbyte2;
         }
 
-        private void RadioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void ComboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (readList.Count != 0)
@@ -445,11 +338,12 @@ namespace WindowsFormsApp1
         }
         private void DataType_Switching()
         {
-            this.Invoke(new Action(delegate () {
+            this.Invoke(new Action(delegate ()
+            {
                 switch (comboBox6.SelectedIndex)
                 {
                     case 0:
-                        {   
+                        {
                             listView1.Items.Clear();
                             for (int i = 0; i < readList.Count; i++)
                             {

@@ -90,7 +90,6 @@
             this.textBox1.Size = new System.Drawing.Size(112, 21);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "COM4";
-            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // button1
             // 
@@ -110,7 +109,6 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // label2
             // 
@@ -128,7 +126,6 @@
             this.textBox6.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox6.Size = new System.Drawing.Size(129, 21);
             this.textBox6.TabIndex = 4;
-            this.textBox6.TextChanged += new System.EventHandler(this.TextBox6_TextChanged);
             this.textBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox6_KeyPress);
             // 
             // label4
@@ -148,7 +145,6 @@
             this.label5.Size = new System.Drawing.Size(55, 12);
             this.label5.TabIndex = 3;
             this.label5.Text = "Stop Bits";
-            this.label5.Click += new System.EventHandler(this.Label5_Click);
             // 
             // label6
             // 
@@ -172,7 +168,6 @@
             this.comboBox1.Size = new System.Drawing.Size(112, 20);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "8";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // comboBox2
             // 
@@ -185,7 +180,6 @@
             this.comboBox2.Size = new System.Drawing.Size(112, 20);
             this.comboBox2.TabIndex = 5;
             this.comboBox2.Text = "2";
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
             // 
             // comboBox3
             // 
@@ -199,7 +193,6 @@
             this.comboBox3.Size = new System.Drawing.Size(112, 20);
             this.comboBox3.TabIndex = 5;
             this.comboBox3.Text = "None";
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
             // 
             // comboBox4
             // 
@@ -222,7 +215,6 @@
             this.comboBox4.Size = new System.Drawing.Size(112, 20);
             this.comboBox4.TabIndex = 5;
             this.comboBox4.Text = "115200";
-            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.ComboBox4_SelectedIndexChanged);
             // 
             // button3
             // 
@@ -242,7 +234,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(224, 87);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
             // 
             // chart1
             // 
@@ -280,7 +271,6 @@
             this.richTextBox2.Size = new System.Drawing.Size(224, 87);
             this.richTextBox2.TabIndex = 7;
             this.richTextBox2.Text = "";
-            this.richTextBox2.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
             // 
             // label1
             // 
@@ -290,7 +280,6 @@
             this.label1.Size = new System.Drawing.Size(43, 12);
             this.label1.TabIndex = 3;
             this.label1.Text = "TEST1";
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label7
             // 
@@ -365,7 +354,6 @@
             this.textBox2.Size = new System.Drawing.Size(112, 21);
             this.textBox2.TabIndex = 18;
             this.textBox2.Text = "1";
-            this.textBox2.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
             // comboBox5
             // 
@@ -424,7 +412,6 @@
             this.radioButton2.TabIndex = 23;
             this.radioButton2.Text = "HEX";
             this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -468,7 +455,6 @@
             this.listView1.TabIndex = 24;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
             // 
             // Address
             // 
