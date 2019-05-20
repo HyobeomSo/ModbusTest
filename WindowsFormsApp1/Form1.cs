@@ -16,7 +16,6 @@ namespace WindowsFormsApp1
     {
         List<KeyValuePair<int, string>> readList = new List<KeyValuePair<int, string>>();
         SerialPort sp = new SerialPort();
-        int min = 0;
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -70,7 +69,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            CellImage.Load("../../EssImages/ess.png");
+            CellImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void OpenBtn_Click(object sender, EventArgs e)
@@ -101,8 +101,6 @@ namespace WindowsFormsApp1
             {
                 sp.Parity = Parity.None;
             }
-            chart1.ChartAreas[0].AxisX.Minimum = min + 1;
-            chart1.ChartAreas[0].AxisX.Maximum = min + 11;
 
             sp.DataReceived += SP_DataReceive;
             sp.Open();

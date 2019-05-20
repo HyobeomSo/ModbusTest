@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label3 = new System.Windows.Forms.Label();
             this.PortName = new System.Windows.Forms.TextBox();
             this.OpenBtn = new System.Windows.Forms.Button();
@@ -46,11 +42,6 @@
             this.ParityBits = new System.Windows.Forms.ComboBox();
             this.BaudRate = new System.Windows.Forms.ComboBox();
             this.SendBtn = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,9 +60,10 @@
             this.Address = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Data = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SelectDataType = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.CellImage = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CellImage)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -226,70 +218,6 @@
             this.SendBtn.UseVisualStyleBackColor = true;
             this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(1185, 862);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(224, 87);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
-            // 
-            // chart1
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(1169, 547);
-            this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.CustomProperties = "IsXAxisQuantitative=False";
-            series3.Legend = "Legend1";
-            series3.Name = "TEST1";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "TEST2";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
-            this.chart1.Size = new System.Drawing.Size(522, 297);
-            this.chart1.TabIndex = 10;
-            this.chart1.Text = "chart1";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(1438, 862);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(224, 87);
-            this.richTextBox2.TabIndex = 7;
-            this.richTextBox2.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1263, 847);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "TEST1";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1530, 847);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 12);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "TEST2";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.ParityBits);
@@ -437,10 +365,10 @@
             // 
             // ReceiveTextBox
             // 
-            this.ReceiveTextBox.Location = new System.Drawing.Point(239, 13);
+            this.ReceiveTextBox.Location = new System.Drawing.Point(238, 12);
             this.ReceiveTextBox.Name = "ReceiveTextBox";
             this.ReceiveTextBox.ReadOnly = true;
-            this.ReceiveTextBox.Size = new System.Drawing.Size(437, 376);
+            this.ReceiveTextBox.Size = new System.Drawing.Size(394, 377);
             this.ReceiveTextBox.TabIndex = 23;
             this.ReceiveTextBox.Text = "";
             // 
@@ -449,7 +377,7 @@
             this.DataView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Address,
             this.Data});
-            this.DataView.Location = new System.Drawing.Point(682, 36);
+            this.DataView.Location = new System.Drawing.Point(1087, 38);
             this.DataView.Name = "DataView";
             this.DataView.Size = new System.Drawing.Size(219, 376);
             this.DataView.TabIndex = 24;
@@ -473,38 +401,44 @@
             "Hex",
             "Signed",
             "Float"});
-            this.SelectDataType.Location = new System.Drawing.Point(682, 10);
+            this.SelectDataType.Location = new System.Drawing.Point(1087, 12);
             this.SelectDataType.Name = "SelectDataType";
             this.SelectDataType.Size = new System.Drawing.Size(100, 20);
             this.SelectDataType.TabIndex = 25;
             this.SelectDataType.Text = "Hex";
             this.SelectDataType.SelectedIndexChanged += new System.EventHandler(this.Change_DataType);
             // 
+            // CellImage
+            // 
+            this.CellImage.ErrorImage = null;
+            this.CellImage.InitialImage = null;
+            this.CellImage.Location = new System.Drawing.Point(638, 12);
+            this.CellImage.Name = "CellImage";
+            this.CellImage.Size = new System.Drawing.Size(434, 377);
+            this.CellImage.TabIndex = 26;
+            this.CellImage.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 424);
+            this.ClientSize = new System.Drawing.Size(1314, 586);
+            this.Controls.Add(this.CellImage);
             this.Controls.Add(this.SelectDataType);
             this.Controls.Add(this.DataView);
             this.Controls.Add(this.ReceiveTextBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.chart1);
-            this.Controls.Add(this.richTextBox2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.SendText);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CellImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,11 +460,6 @@
         private System.Windows.Forms.ComboBox ParityBits;
         private System.Windows.Forms.ComboBox BaudRate;
         private System.Windows.Forms.Button SendBtn;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -549,6 +478,7 @@
         private System.Windows.Forms.ColumnHeader Address;
         private System.Windows.Forms.ColumnHeader Data;
         private System.Windows.Forms.ComboBox SelectDataType;
+        private System.Windows.Forms.PictureBox CellImage;
     }
 }
 
