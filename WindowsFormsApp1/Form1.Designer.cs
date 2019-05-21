@@ -423,8 +423,8 @@
             // 
             // CellImage
             // 
-            this.CellImage.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.ESS_F3;
             this.CellImage.ErrorImage = null;
+            this.CellImage.Image = global::WindowsFormsApp1.Properties.Resources.ESS_F3;
             this.CellImage.InitialImage = null;
             this.CellImage.Location = new System.Drawing.Point(638, 12);
             this.CellImage.Name = "CellImage";
@@ -434,6 +434,8 @@
             // 
             // button1
             // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(753, 92);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 31);
@@ -443,6 +445,8 @@
             // 
             // button2
             // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(871, 92);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 31);
@@ -452,6 +456,8 @@
             // 
             // button3
             // 
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Location = new System.Drawing.Point(753, 204);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 31);
@@ -461,6 +467,8 @@
             // 
             // button4
             // 
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Location = new System.Drawing.Point(871, 204);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 31);
@@ -470,6 +478,8 @@
             // 
             // button5
             // 
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Location = new System.Drawing.Point(753, 317);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(92, 31);
@@ -479,6 +489,10 @@
             // 
             // button6
             // 
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Location = new System.Drawing.Point(871, 317);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 31);

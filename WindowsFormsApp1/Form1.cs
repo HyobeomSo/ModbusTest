@@ -274,7 +274,7 @@ namespace WindowsFormsApp1
                 if (AsciiBtn.Checked)
                 {
                     sp.Write(":" + SendText.Text + "\r\n");
-                    ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+                    ReceiveTextBox.AppendText("[송신] :" + SendText.Text + '\n');
                     ReceiveTextBox.ScrollToCaret();
                 }
                 else
