@@ -68,10 +68,10 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SendContinuously = new System.Windows.Forms.CheckBox();
+            this.SendInterval = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
+            this.StopBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CellImage)).BeginInit();
@@ -112,6 +112,7 @@
             this.CloseBtn.TabIndex = 2;
             this.CloseBtn.Text = "Close";
             this.CloseBtn.UseVisualStyleBackColor = true;
+            this.CloseBtn.Click += new System.EventHandler(this.CloseBtn_Click);
             // 
             // label2
             // 
@@ -434,7 +435,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(753, 317);
+            this.button1.Location = new System.Drawing.Point(753, 92);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 31);
             this.button1.TabIndex = 27;
@@ -443,7 +444,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(753, 202);
+            this.button2.Location = new System.Drawing.Point(871, 92);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 31);
             this.button2.TabIndex = 27;
@@ -452,7 +453,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(753, 90);
+            this.button3.Location = new System.Drawing.Point(753, 204);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 31);
             this.button3.TabIndex = 27;
@@ -461,7 +462,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(871, 317);
+            this.button4.Location = new System.Drawing.Point(871, 204);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 31);
             this.button4.TabIndex = 27;
@@ -470,7 +471,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(871, 202);
+            this.button5.Location = new System.Drawing.Point(753, 317);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(92, 31);
             this.button5.TabIndex = 27;
@@ -479,31 +480,31 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(871, 90);
+            this.button6.Location = new System.Drawing.Point(871, 317);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 31);
             this.button6.TabIndex = 27;
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
-            // checkBox1
+            // SendContinuously
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 395);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(131, 16);
-            this.checkBox1.TabIndex = 28;
-            this.checkBox1.Text = "Send Continuously";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.SendContinuously.AutoSize = true;
+            this.SendContinuously.Location = new System.Drawing.Point(12, 395);
+            this.SendContinuously.Name = "SendContinuously";
+            this.SendContinuously.Size = new System.Drawing.Size(131, 16);
+            this.SendContinuously.TabIndex = 28;
+            this.SendContinuously.Text = "Send Continuously";
+            this.SendContinuously.UseVisualStyleBackColor = true;
+            this.SendContinuously.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
-            // textBox1
+            // SendInterval
             // 
-            this.textBox1.Location = new System.Drawing.Point(61, 417);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(75, 21);
-            this.textBox1.TabIndex = 29;
+            this.SendInterval.Location = new System.Drawing.Point(61, 417);
+            this.SendInterval.Name = "SendInterval";
+            this.SendInterval.ReadOnly = true;
+            this.SendInterval.Size = new System.Drawing.Size(75, 21);
+            this.SendInterval.TabIndex = 29;
             // 
             // label1
             // 
@@ -514,15 +515,15 @@
             this.label1.TabIndex = 30;
             this.label1.Text = "Interval";
             // 
-            // button7
+            // StopBtn
             // 
-            this.button7.Location = new System.Drawing.Point(147, 415);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "Stop";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            this.StopBtn.Location = new System.Drawing.Point(147, 415);
+            this.StopBtn.Name = "StopBtn";
+            this.StopBtn.Size = new System.Drawing.Size(75, 23);
+            this.StopBtn.TabIndex = 6;
+            this.StopBtn.Text = "Stop";
+            this.StopBtn.UseVisualStyleBackColor = true;
+            this.StopBtn.Click += new System.EventHandler(this.Button7_Click);
             // 
             // Form1
             // 
@@ -530,8 +531,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1314, 485);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.SendInterval);
+            this.Controls.Add(this.SendContinuously);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button5);
@@ -544,11 +545,11 @@
             this.Controls.Add(this.ReceiveTextBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.StopBtn);
             this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.SendText);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ModbusTest";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -601,10 +602,10 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox SendContinuously;
+        private System.Windows.Forms.TextBox SendInterval;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button StopBtn;
     }
 }
 

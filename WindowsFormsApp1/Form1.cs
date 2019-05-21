@@ -18,7 +18,6 @@ namespace WindowsFormsApp1
         SerialPort sp = new SerialPort();
         Button[] tempBtn = new Button[6];
         Color[] btnColor = new Color[101];
-        bool stop = false;
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -68,15 +67,38 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            //int red = 0;
+            //int blue = 255;
+            //for (int i = 0; i < 101; i++)
+            //{
+            //    btnColor[i] = Color.FromArgb(red, 0, blue);
+            //    if (red < 255)
+            //        red += 5;
+            //    if (red >= 255)
+            //        blue -= 5;
+            //}
             int red = 0;
-            int blue = 255;
+            int green = 0;
+            int blue = 250;
             for (int i = 0; i < 101; i++)
             {
-                btnColor[i] = Color.FromArgb(red, 0, blue);
-                if (red < 255)
-                    red += 5;
-                if (red >= 255)
-                    blue -= 5;
+                btnColor[i] = Color.FromArgb(red, green, blue);
+                if (green < 250 && blue == 250)
+                {
+                    green += 10;
+                }
+                else if (green == 250 && blue > 0)
+                {
+                    blue -= 10;
+                }
+                else if (green == 250 && blue == 0 && red != 250)
+                {
+                    red += 10;
+                }
+                else if (green > 0 && red == 250)
+                {
+                    green -= 10;
+                }
             }
             tempBtn[0] = button1;
             tempBtn[1] = button2;
@@ -88,8 +110,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CellImage.Load("..\\..\\EssImages\\ESS_F2.jpg");
-            CellImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            //CellImage.Load("..\\..\\EssImages\\ESS_F2.jpg");
+            //CellImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void OpenBtn_Click(object sender, EventArgs e)
@@ -129,107 +151,112 @@ namespace WindowsFormsApp1
         private void SP_DataReceive(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(100);
-            int dataSize = sp.BytesToRead;
-            string data;
-            string temp;
-
-            this.Invoke(new Action(delegate ()
-                {
-                    if (M_Function.SelectedIndex + 1 == 4)
-                        addr = 30000;
-                    else
-                        addr = 40000;
-                }));
-
-            if (dataSize != 0)
+            if (sp.IsOpen)
             {
-                data = "";
-                byte[] buff = new byte[dataSize];
-                sp.Read(buff, 0, dataSize);
-                string lrcChk = "";
-                int idx;
-                for (idx = 1; idx < dataSize - 4; idx++)
+                int dataSize = sp.BytesToRead;
+                string data;
+                string temp;
+
+                this.Invoke(new Action(delegate ()
+                    {
+                        if (M_Function.SelectedIndex + 1 == 4)
+                            addr = 30000;
+                        else
+                            addr = 40000;
+                    }));
+
+                if (dataSize != 0)
                 {
-                    lrcChk += Convert.ToChar(buff[idx]);
-                }
-                string lrc = "";
-                for (; idx < dataSize - 2; idx++)
-                {
-                    lrc += Convert.ToChar(buff[idx]);
-                }
-                if (Lrc_Calc(lrcChk) != lrc)
-                {
+                    data = "";
+                    byte[] buff = new byte[dataSize];
+                    sp.Read(buff, 0, dataSize);
+                    string lrcChk = "";
+                    int idx;
+                    for (idx = 1; idx < dataSize - 4; idx++)
+                    {
+                        lrcChk += Convert.ToChar(buff[idx]);
+                    }
+                    string lrc = "";
+                    for (; idx < dataSize - 2; idx++)
+                    {
+                        lrc += Convert.ToChar(buff[idx]);
+                    }
+                    if (Lrc_Calc(lrcChk) != lrc)
+                    {
+                        this.Invoke(new Action(delegate ()
+                        {
+                            ReceiveTextBox.AppendText("LRC Error\n");
+                        }));
+                        return;
+                    }
+                    if (AsciiBtn.Checked)
+                    {
+                        for (int i = 1; i < 7; i++)
+                            data += Convert.ToChar(buff[i]);
+                        for (int i = 7; i + 4 < dataSize; i += 4)
+                        {
+                            temp = "";
+                            temp += Convert.ToChar(buff[i]);
+                            temp += Convert.ToChar(buff[i + 1]);
+                            temp += Convert.ToChar(buff[i + 2]);
+                            temp += Convert.ToChar(buff[i + 3]);
+                            readList.Add(new KeyValuePair<int, string>(addr, temp));
+                            addr++;
+                        }
+                        Invoke(new Action(delegate () {
+                            DataView.Items.Clear();
+                        }));
+                        DataType_Switching();
+                    }
+                    else
+                    {
+                        foreach (int bData in buff)
+                        {
+                            data += bData.ToString("X").PadLeft(2, '0');
+                        }
+                    }
                     this.Invoke(new Action(delegate ()
                     {
-                        ReceiveTextBox.AppendText("LRC Error\n");
+                        ReceiveTextBox.AppendText("[수신] :" + lrcChk + lrc + "\n");
+                        ReceiveTextBox.ScrollToCaret();
                     }));
-                    return;
+                    Sensor_Temperature();
                 }
-                if (AsciiBtn.Checked)
-                {
-                    for (int i = 1; i < 7; i++)
-                        data += Convert.ToChar(buff[i]);
-                    for (int i = 7; i + 4 < dataSize; i += 4)
-                    {
-                        temp = "";
-                        temp += Convert.ToChar(buff[i]);
-                        temp += Convert.ToChar(buff[i + 1]);
-                        temp += Convert.ToChar(buff[i + 2]);
-                        temp += Convert.ToChar(buff[i + 3]);
-                        readList.Add(new KeyValuePair<int, string>(addr, temp));
-                        addr++;
-                    }
-                    DataView.Items.Clear();
-                    DataType_Switching();
-                }
-                else
-                {
-                    foreach (int bData in buff)
-                    {
-                        data += bData.ToString("X").PadLeft(2, '0');
-                    }
-                }
-                this.Invoke(new Action(delegate ()
-                {
-                    ReceiveTextBox.AppendText("[수신] " + lrcChk + lrc + "\n");
-                    ReceiveTextBox.ScrollToCaret();
-                }));
-                Sensor_Temperature();
             }
         }
-
-        private void AsciiCon()
+        public void AsciiCon()
         {
-            while (!stop)
+            while (true)
             {
+                Thread.Sleep(Convert.ToInt32(SendInterval.Text));
                 sp.Write(conAscii);
                 Invoke(new Action(delegate () {
-                    ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+                    ReceiveTextBox.AppendText("[송신] " + conAscii);
                     ReceiveTextBox.ScrollToCaret();
                 }));
-                Thread.Sleep(Convert.ToInt32(textBox1.Text));
+                readList.Clear();
             }
         }
         string conAscii;
+        Thread T1 = null;
         private void SendBtn_Click(object sender, EventArgs e)
         {
-            stop = false;
             if (!sp.IsOpen)
             {
                 MessageBox.Show("Not Connected");
                 return;
             }
-            if (checkBox1.Checked)
+            if (SendContinuously.Checked)
             {
                 if (AsciiBtn.Checked)
                 {
                     conAscii = ":" + SendText.Text + "\r\n";
-                    Thread T1 = new Thread(new ThreadStart(AsciiCon));
+                    T1 = new Thread(new ThreadStart(AsciiCon));
                     T1.Start();
                 }
                 else
                 {
-                    while (!stop)
+                    while (true)
                     {
                         string msg = SendText.Text;
                         byte[] temp = new byte[msg.Length / 2];
@@ -238,9 +265,8 @@ namespace WindowsFormsApp1
                             temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
                         }
                         sp.Write(temp, 0, temp.Length);
-                        Thread.Sleep(Convert.ToInt32(textBox1.Text));
+                        Thread.Sleep(Convert.ToInt32(SendInterval.Text));
                     }
-                    stop = false;
                 }
             }
             else
@@ -248,6 +274,8 @@ namespace WindowsFormsApp1
                 if (AsciiBtn.Checked)
                 {
                     sp.Write(":" + SendText.Text + "\r\n");
+                    ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+                    ReceiveTextBox.ScrollToCaret();
                 }
                 else
                 {
@@ -258,10 +286,10 @@ namespace WindowsFormsApp1
                         temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
                     }
                     sp.Write(temp, 0, temp.Length);
+                    ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+                    ReceiveTextBox.ScrollToCaret();
                 }
             }
-            ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
-            ReceiveTextBox.ScrollToCaret();
             SendText.Clear();
             readList.Clear();
         }
@@ -459,16 +487,23 @@ namespace WindowsFormsApp1
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            stop = true;
+            if (T1 != null)
+                T1.Abort();
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-                textBox1.ReadOnly = false;
+            if (SendContinuously.Checked)
+                SendInterval.ReadOnly = false;
             else
-                textBox1.ReadOnly = true;
+                SendInterval.ReadOnly = true;
         }
 
+        private void CloseBtn_Click(object sender, EventArgs e)
+        {
+            if (T1 != null)
+                T1.Abort();
+            sp.Close();
+        }
     }
 }
