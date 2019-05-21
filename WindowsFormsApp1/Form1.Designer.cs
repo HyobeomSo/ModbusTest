@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label3 = new System.Windows.Forms.Label();
             this.PortName = new System.Windows.Forms.TextBox();
             this.OpenBtn = new System.Windows.Forms.Button();
@@ -424,7 +423,7 @@
             // 
             // CellImage
             // 
-            this.CellImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CellImage.BackgroundImage")));
+            this.CellImage.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.ESS_F3;
             this.CellImage.ErrorImage = null;
             this.CellImage.InitialImage = null;
             this.CellImage.Location = new System.Drawing.Point(638, 12);
