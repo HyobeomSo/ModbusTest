@@ -16,7 +16,9 @@ namespace WindowsFormsApp1
     {
         List<KeyValuePair<int, string>> readList = new List<KeyValuePair<int, string>>();
         SerialPort sp = new SerialPort();
+        Button[] tempBtn = new Button[6];
         Color[] btnColor = new Color[101];
+        bool stop = false;
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -76,6 +78,12 @@ namespace WindowsFormsApp1
                 if (red >= 255)
                     blue -= 5;
             }
+            tempBtn[0] = button1;
+            tempBtn[1] = button2;
+            tempBtn[2] = button3;
+            tempBtn[3] = button4;
+            tempBtn[4] = button5;
+            tempBtn[5] = button6;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -161,7 +169,7 @@ namespace WindowsFormsApp1
                 {
                     for (int i = 1; i < 7; i++)
                         data += Convert.ToChar(buff[i]);
-                    for (int i = 7; i < dataSize - 4; i += 4)
+                    for (int i = 7; i + 4 < dataSize; i += 4)
                     {
                         temp = "";
                         temp += Convert.ToChar(buff[i]);
@@ -171,6 +179,7 @@ namespace WindowsFormsApp1
                         readList.Add(new KeyValuePair<int, string>(addr, temp));
                         addr++;
                     }
+                    DataView.Items.Clear();
                     DataType_Switching();
                 }
                 else
@@ -185,30 +194,71 @@ namespace WindowsFormsApp1
                     ReceiveTextBox.AppendText("[수신] " + lrcChk + lrc + "\n");
                     ReceiveTextBox.ScrollToCaret();
                 }));
+                Sensor_Temperature();
             }
         }
 
+        private void AsciiCon()
+        {
+            while (!stop)
+            {
+                sp.Write(conAscii);
+                Invoke(new Action(delegate () {
+                    ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
+                    ReceiveTextBox.ScrollToCaret();
+                }));
+                Thread.Sleep(Convert.ToInt32(textBox1.Text));
+            }
+        }
+        string conAscii;
         private void SendBtn_Click(object sender, EventArgs e)
         {
+            stop = false;
             if (!sp.IsOpen)
             {
                 MessageBox.Show("Not Connected");
                 return;
             }
-            if (AsciiBtn.Checked)
+            if (checkBox1.Checked)
             {
-                sp.Write(":" + SendText.Text + "\r\n");
+                if (AsciiBtn.Checked)
+                {
+                    conAscii = ":" + SendText.Text + "\r\n";
+                    Thread T1 = new Thread(new ThreadStart(AsciiCon));
+                    T1.Start();
+                }
+                else
+                {
+                    while (!stop)
+                    {
+                        string msg = SendText.Text;
+                        byte[] temp = new byte[msg.Length / 2];
+                        for (int i = 0; i < SendText.Text.Length; i += 2)
+                        {
+                            temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
+                        }
+                        sp.Write(temp, 0, temp.Length);
+                        Thread.Sleep(Convert.ToInt32(textBox1.Text));
+                    }
+                    stop = false;
+                }
             }
             else
             {
-                string msg = SendText.Text;
-                byte[] temp = new byte[msg.Length / 2];
-                for (int i = 0; i < SendText.Text.Length; i += 2)
+                if (AsciiBtn.Checked)
                 {
-                    temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
+                    sp.Write(":" + SendText.Text + "\r\n");
                 }
-                sp.Write(temp, 0, temp.Length);
-
+                else
+                {
+                    string msg = SendText.Text;
+                    byte[] temp = new byte[msg.Length / 2];
+                    for (int i = 0; i < SendText.Text.Length; i += 2)
+                    {
+                        temp[i / 2] = byte.Parse("" + msg[i] + msg[i + 1], System.Globalization.NumberStyles.HexNumber);
+                    }
+                    sp.Write(temp, 0, temp.Length);
+                }
             }
             ReceiveTextBox.AppendText("[송신] " + SendText.Text + '\n');
             ReceiveTextBox.ScrollToCaret();
@@ -307,81 +357,50 @@ namespace WindowsFormsApp1
 
         private void Change_DataType(object sender, EventArgs e)
         {
-            if (readList.Count != 0)
-            {
-                switch (SelectDataType.SelectedIndex)
-                {
-                    case 0:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
-                            {
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(readList[i].Value);
-                            }
-                            break;
-                        }
-                    case 1:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
-                            {
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
-                            }
-                            break;
-                        }
-                    case 2:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
-                            {
-                                string tem = readList[i].Value;
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(tem.Insert(2, "."));
-                            }
-                            break;
-                        }
-                }
-            }
+            DataType_Switching();
         }
         private void DataType_Switching()
         {
             this.Invoke(new Action(delegate ()
             {
-                switch (SelectDataType.SelectedIndex)
+                if (DataView.Items.Count == 0)
                 {
-                    case 0:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
+                    for (int i = 0; i < readList.Count; i++)
+                    {
+                        DataView.Items.Add(readList[i].Key.ToString());
+                        DataView.Items[i].SubItems.Add(readList[i].Value);
+                    }
+                }
+                if (readList.Count != 0)
+                {
+                    switch (SelectDataType.SelectedIndex)
+                    {
+                        case 0:
                             {
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(readList[i].Value);
+                                for (int i = 0; i < readList.Count; i++)
+                                {
+                                    DataView.Items[i].SubItems[1].Text = readList[i].Value;
+                                }
+                                break;
                             }
-                            break;
-                        }
-                    case 1:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
+                        case 1:
                             {
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
+                                for (int i = 0; i < readList.Count; i++)
+                                {
+                                    DataView.Items[i].SubItems[1].Text = (int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber).ToString());
+                                }
+                                break;
                             }
-                            break;
-                        }
-                    case 2:
-                        {
-                            DataView.Items.Clear();
-                            for (int i = 0; i < readList.Count; i++)
+                        case 2:
                             {
-                                string tem = readList[i].Value;
-                                DataView.Items.Add(readList[i].Key.ToString());
-                                DataView.Items[i].SubItems.Add(tem.Insert(2, "."));
+                                for (int i = 0; i < readList.Count; i++)
+                                {
+                                    string tem = readList[i].Value;
+                                    DataView.Items[i].SubItems[1].Text = (tem.Insert(2, "."));
+                                }
+                                break;
                             }
-                            break;
-                        }
+                    }
                 }
             }
             ));
@@ -389,37 +408,67 @@ namespace WindowsFormsApp1
 
         private void Sensor_Temperature()
         {
+            Invoke(new Action(delegate ()
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    if (readList.Count <= i)
+                    {
+                        tempBtn[i].BackColor = btnColor[0];
+                        tempBtn[i].Update();
+                    }
 
+                    else
+                    {
+                        tempBtn[i].BackColor = btnColor[int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber) / 100];
+                        tempBtn[i].Update();
+                    }
+                }
+            }));
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Button6_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            
+
         }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            stop = true;
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                textBox1.ReadOnly = false;
+            else
+                textBox1.ReadOnly = true;
+        }
+
     }
 }

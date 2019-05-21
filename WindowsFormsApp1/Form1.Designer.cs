@@ -68,6 +68,10 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CellImage)).BeginInit();
@@ -120,7 +124,7 @@
             // 
             // SendText
             // 
-            this.SendText.Location = new System.Drawing.Point(12, 425);
+            this.SendText.Location = new System.Drawing.Point(12, 452);
             this.SendText.Name = "SendText";
             this.SendText.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.SendText.Size = new System.Drawing.Size(129, 21);
@@ -219,7 +223,7 @@
             // 
             // SendBtn
             // 
-            this.SendBtn.Location = new System.Drawing.Point(142, 425);
+            this.SendBtn.Location = new System.Drawing.Point(147, 450);
             this.SendBtn.Name = "SendBtn";
             this.SendBtn.Size = new System.Drawing.Size(75, 23);
             this.SendBtn.TabIndex = 6;
@@ -430,7 +434,6 @@
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Location = new System.Drawing.Point(753, 317);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 31);
@@ -440,7 +443,6 @@
             // 
             // button2
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button2.Location = new System.Drawing.Point(753, 202);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 31);
@@ -450,7 +452,6 @@
             // 
             // button3
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button3.Location = new System.Drawing.Point(753, 90);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 31);
@@ -460,7 +461,6 @@
             // 
             // button4
             // 
-            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button4.Location = new System.Drawing.Point(871, 317);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 31);
@@ -470,7 +470,6 @@
             // 
             // button5
             // 
-            this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button5.Location = new System.Drawing.Point(871, 202);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(92, 31);
@@ -480,7 +479,6 @@
             // 
             // button6
             // 
-            this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button6.Location = new System.Drawing.Point(871, 90);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 31);
@@ -488,11 +486,52 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 395);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(131, 16);
+            this.checkBox1.TabIndex = 28;
+            this.checkBox1.Text = "Send Continuously";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(61, 417);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(75, 21);
+            this.textBox1.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 420);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 12);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "Interval";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(147, 415);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 6;
+            this.button7.Text = "Stop";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1314, 450);
+            this.ClientSize = new System.Drawing.Size(1314, 485);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button5);
@@ -505,6 +544,7 @@
             this.Controls.Add(this.ReceiveTextBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.SendText);
             this.Name = "Form1";
@@ -561,6 +601,10 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button7;
     }
 }
 
