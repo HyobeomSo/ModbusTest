@@ -333,12 +333,21 @@ namespace WindowsFormsApp1
         private String Lrc_Calc(String s)
         {
             int sum = 0;
+            if (s.Length % 2 == 1)
+                return "987654321";
             for (int i = 0; i < s.Length; i += 2)
             {
-                sum += int.Parse("" + s[i] + s[i + 1], System.Globalization.NumberStyles.HexNumber);
-                if (sum > 0xFF)
+                try
                 {
-                    sum -= 0x100;
+                    sum += int.Parse("" + s[i] + s[i + 1], System.Globalization.NumberStyles.HexNumber);
+                    if (sum > 0xFF)
+                    {
+                        sum -= 0x100;
+                    }
+                }
+                catch (FormatException e)
+                {
+                    return "987654321";
                 }
             }
             sum ^= 0xFF;
@@ -549,13 +558,25 @@ namespace WindowsFormsApp1
 
         private void CloseBtn_Click(object sender, EventArgs e)
         {
+            if (form2 != null)
+            {
+                form2.Close();
+                form2 = null;
+            }
             if (T1 != null)
+            {
                 T1.Abort();
+            }
             sp.Close();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (form2 != null)
+            {
+                form2.Close();
+                form2 = null;
+            }
             if (T1 != null)
                 T1.Abort();
             sp.Close();
