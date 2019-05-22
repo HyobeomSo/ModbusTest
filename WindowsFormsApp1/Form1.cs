@@ -251,11 +251,19 @@ namespace WindowsFormsApp1
                 }
             }
         }
+        int intervalTime;
         public void AsciiCon()
         {
             while (true)
             {
-                Thread.Sleep(Convert.ToInt32(SendInterval.Text));
+                try
+                {
+                    Thread.Sleep(intervalTime);
+                }
+                catch (ThreadInterruptedException e)
+                {
+                    T1.Abort();
+                }
                 sp.Write(conAscii);
                 Invoke(new Action(delegate ()
                 {
@@ -276,6 +284,7 @@ namespace WindowsFormsApp1
             }
             if (SendContinuously.Checked)
             {
+                intervalTime = Convert.ToInt32(SendInterval.Text);
                 if (AsciiBtn.Checked)
                 {
                     conAscii = ":" + SendText.Text + "\r\n";
@@ -544,8 +553,8 @@ namespace WindowsFormsApp1
         }
         private void Button7_Click(object sender, EventArgs e)
         {
-            if (T1 != null)
-                T1.Abort();
+            if (T1.IsAlive)
+                T1.Interrupt();
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -563,13 +572,12 @@ namespace WindowsFormsApp1
                 form2.Close();
                 form2 = null;
             }
-            if (T1 != null)
+            if (T1.IsAlive)
             {
-                T1.Abort();
+                T1.Interrupt();
             }
             sp.Close();
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (form2 != null)
@@ -577,9 +585,11 @@ namespace WindowsFormsApp1
                 form2.Close();
                 form2 = null;
             }
-            if (T1 != null)
-                T1.Abort();
-            sp.Close();
+            if (T1.IsAlive)
+            {
+                T1.Interrupt();
+            }
+            Thread.Sleep(10);
         }
     }
 }
