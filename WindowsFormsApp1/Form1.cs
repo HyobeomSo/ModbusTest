@@ -14,10 +14,11 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        List<KeyValuePair<int, string>> readList = new List<KeyValuePair<int, string>>();
+        public List<KeyValuePair<int, string>> readList = new List<KeyValuePair<int, string>>();
         SerialPort sp = new SerialPort();
         Button[] tempBtn = new Button[6];
         Color[] btnColor = new Color[101];
+        public int num = 0;
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -67,16 +68,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            //int red = 0;
-            //int blue = 255;
-            //for (int i = 0; i < 101; i++)
-            //{
-            //    btnColor[i] = Color.FromArgb(red, 0, blue);
-            //    if (red < 255)
-            //        red += 5;
-            //    if (red >= 255)
-            //        blue -= 5;
-            //}
+            /*
             int red = 0;
             int green = 0;
             int blue = 250;
@@ -100,6 +92,13 @@ namespace WindowsFormsApp1
                     green -= 10;
                 }
             }
+            */
+            Random r = new Random(); ;
+            for (int i = 0; i < 101; i++)
+            {
+                btnColor[i] = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+                
+            }
             tempBtn[0] = button1;
             tempBtn[1] = button2;
             tempBtn[2] = button3;
@@ -110,8 +109,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //CellImage.Load("..\\..\\EssImages\\ESS_F2.jpg");
-            //CellImage.SizeMode = PictureBoxSizeMode.StretchImage;
+
         }
 
         private void OpenBtn_Click(object sender, EventArgs e)
@@ -203,7 +201,16 @@ namespace WindowsFormsApp1
                             readList.Add(new KeyValuePair<int, string>(addr, temp));
                             addr++;
                         }
-                        Invoke(new Action(delegate () {
+                        if (form2 != null)
+                        {
+                            float cData = int.Parse(readList[num].Value, System.Globalization.NumberStyles.HexNumber) / 100.0f;
+                            Invoke(new Action(delegate ()
+                            {
+                                form2.chart1.Series[0].Points.Add(cData);
+                            }));
+                        }
+                        Invoke(new Action(delegate ()
+                        {
                             DataView.Items.Clear();
                         }));
                         DataType_Switching();
@@ -230,7 +237,8 @@ namespace WindowsFormsApp1
             {
                 Thread.Sleep(Convert.ToInt32(SendInterval.Text));
                 sp.Write(conAscii);
-                Invoke(new Action(delegate () {
+                Invoke(new Action(delegate ()
+                {
                     ReceiveTextBox.AppendText("[송신] " + conAscii);
                     ReceiveTextBox.ScrollToCaret();
                 }));
@@ -445,7 +453,6 @@ namespace WindowsFormsApp1
                         tempBtn[i].BackColor = btnColor[0];
                         tempBtn[i].Update();
                     }
-
                     else
                     {
                         tempBtn[i].BackColor = btnColor[int.Parse(readList[i].Value, System.Globalization.NumberStyles.HexNumber) / 100];
@@ -454,37 +461,48 @@ namespace WindowsFormsApp1
                 }
             }));
         }
-
+        public Form2 form2;
+        private void CreateForm2()
+        {
+            if (form2 != null)
+            {
+                form2.Close();
+                form2 = null;
+            }
+            form2 = new Form2();
+            form2.Owner = this;
+            form2.Show();
+        }
         private void Button1_Click(object sender, EventArgs e)
         {
-
+            CreateForm2();
+            num = 1;
         }
-
-        private void Button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Button2_Click(object sender, EventArgs e)
         {
-
+            CreateForm2();
+            num = 2;
         }
-
-        private void Button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Button3_Click(object sender, EventArgs e)
         {
-
+            CreateForm2();
+            num = 3;
         }
-
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            CreateForm2();
+            num = 4;
+        }
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            CreateForm2();
+            num = 5;
+        }
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            CreateForm2();
+            num = 6;
+        }
         private void Button7_Click(object sender, EventArgs e)
         {
             if (T1 != null)
