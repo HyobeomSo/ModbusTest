@@ -262,6 +262,7 @@ namespace WindowsFormsApp1
                 }
                 catch (ThreadInterruptedException e)
                 {
+                    Thread.Sleep(100);
                     T1.Abort();
                 }
                 sp.Write(conAscii);
@@ -553,7 +554,7 @@ namespace WindowsFormsApp1
         }
         private void Button7_Click(object sender, EventArgs e)
         {
-            if (T1.IsAlive)
+            if (T1 != null)
                 T1.Interrupt();
         }
 
@@ -572,7 +573,7 @@ namespace WindowsFormsApp1
                 form2.Close();
                 form2 = null;
             }
-            if (T1.IsAlive)
+            if (T1 != null)
             {
                 T1.Interrupt();
             }
@@ -585,7 +586,7 @@ namespace WindowsFormsApp1
                 form2.Close();
                 form2 = null;
             }
-            if (T1.IsAlive)
+            if (T1 != null)
             {
                 T1.Interrupt();
             }
