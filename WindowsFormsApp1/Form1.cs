@@ -18,7 +18,8 @@ namespace WindowsFormsApp1
         SerialPort sp = new SerialPort();
         Button[] tempBtn = new Button[6];
         Color[] btnColor = new Color[101];
-        public int num = 0;
+        float[] tempArr = new float[60];
+        public int num = 987654321;
 
         byte[] crc_table = new byte[512] { 0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x1,
             0xC0,0x80,0x41,0x0,0xC1,0x81,0x40,0x0,0xC1,0x81,0x40,0x1,0xC0,0x80,0x41,0x1,0xC0,0x80,0x41,0x0,0xC1,
@@ -145,7 +146,24 @@ namespace WindowsFormsApp1
             sp.Open();
         }
 
+        private void GetTemperture()
+        {
+            tempArr[tempArr.Length - 1] = cData;
+            Array.Copy(tempArr, 1, tempArr, 0, tempArr.Length - 1);
+        }
+
+        private void UpdateTempertureChart()
+        {
+            form2.chart1.Series[0].Points.Clear();
+
+            for (int i = 0; i < tempArr.Length - 1; i++)
+            {
+                form2.chart1.Series[0].Points.AddY(tempArr[i]);
+            }
+        }
+
         static int addr;
+        float cData;
         private void SP_DataReceive(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(100);
@@ -201,12 +219,14 @@ namespace WindowsFormsApp1
                             readList.Add(new KeyValuePair<int, string>(addr, temp));
                             addr++;
                         }
-                        if (form2 != null)
+                        if (form2 != null && num != 987654321)
                         {
-                            float cData = int.Parse(readList[num].Value, System.Globalization.NumberStyles.HexNumber) / 100.0f;
+                            cData = int.Parse(readList[num].Value, System.Globalization.NumberStyles.HexNumber) / 100.0f;
                             Invoke(new Action(delegate ()
                             {
-                                form2.chart1.Series[0].Points.Add(cData);
+                                GetTemperture();
+                                UpdateTempertureChart();
+                                //form2.chart1.Series[0].Points.Add(cData);
                             }));
                         }
                         Invoke(new Action(delegate ()
@@ -464,6 +484,10 @@ namespace WindowsFormsApp1
         public Form2 form2;
         private void CreateForm2()
         {
+            for (int i = 0; i < tempArr.Length - 1; i++)
+            {
+                tempArr[i] = 0.0f;
+            }
             if (form2 != null)
             {
                 form2.Close();
@@ -476,32 +500,38 @@ namespace WindowsFormsApp1
         private void Button1_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 1;
+            num = 0;
+            Thread.Sleep(100);
         }
         private void Button2_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 2;
+            num = 1;
+            Thread.Sleep(100);
         }
         private void Button3_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 3;
+            num = 2;
+            Thread.Sleep(100);
         }
         private void Button4_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 4;
+            num = 3;
+            Thread.Sleep(100);
         }
         private void Button5_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 5;
+            num = 4;
+            Thread.Sleep(100);
         }
         private void Button6_Click(object sender, EventArgs e)
         {
             CreateForm2();
-            num = 6;
+            num = 5;
+            Thread.Sleep(100);
         }
         private void Button7_Click(object sender, EventArgs e)
         {
@@ -518,6 +548,13 @@ namespace WindowsFormsApp1
         }
 
         private void CloseBtn_Click(object sender, EventArgs e)
+        {
+            if (T1 != null)
+                T1.Abort();
+            sp.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (T1 != null)
                 T1.Abort();
