@@ -124,7 +124,7 @@
             // 
             // SendText
             // 
-            this.SendText.Location = new System.Drawing.Point(12, 452);
+            this.SendText.Location = new System.Drawing.Point(11, 474);
             this.SendText.Name = "SendText";
             this.SendText.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.SendText.Size = new System.Drawing.Size(129, 21);
@@ -223,7 +223,7 @@
             // 
             // SendBtn
             // 
-            this.SendBtn.Location = new System.Drawing.Point(147, 450);
+            this.SendBtn.Location = new System.Drawing.Point(146, 472);
             this.SendBtn.Name = "SendBtn";
             this.SendBtn.Size = new System.Drawing.Size(75, 23);
             this.SendBtn.TabIndex = 6;
@@ -245,7 +245,7 @@
             this.groupBox1.Controls.Add(this.CloseBtn);
             this.groupBox1.Controls.Add(this.PortName);
             this.groupBox1.Controls.Add(this.OpenBtn);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
+            this.groupBox1.Location = new System.Drawing.Point(11, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(220, 200);
             this.groupBox1.TabIndex = 11;
@@ -337,7 +337,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.M_SlaveID);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Location = new System.Drawing.Point(12, 209);
+            this.groupBox3.Location = new System.Drawing.Point(11, 231);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(220, 180);
             this.groupBox3.TabIndex = 22;
@@ -378,7 +378,7 @@
             // 
             // ReceiveTextBox
             // 
-            this.ReceiveTextBox.Location = new System.Drawing.Point(238, 12);
+            this.ReceiveTextBox.Location = new System.Drawing.Point(237, 34);
             this.ReceiveTextBox.Name = "ReceiveTextBox";
             this.ReceiveTextBox.ReadOnly = true;
             this.ReceiveTextBox.Size = new System.Drawing.Size(394, 434);
@@ -390,7 +390,7 @@
             this.DataView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Address,
             this.Data});
-            this.DataView.Location = new System.Drawing.Point(1087, 38);
+            this.DataView.Location = new System.Drawing.Point(1086, 60);
             this.DataView.Name = "DataView";
             this.DataView.Size = new System.Drawing.Size(219, 408);
             this.DataView.TabIndex = 24;
@@ -414,7 +414,7 @@
             "Hex",
             "Signed",
             "Float"});
-            this.SelectDataType.Location = new System.Drawing.Point(1087, 12);
+            this.SelectDataType.Location = new System.Drawing.Point(1086, 34);
             this.SelectDataType.Name = "SelectDataType";
             this.SelectDataType.Size = new System.Drawing.Size(100, 20);
             this.SelectDataType.TabIndex = 25;
@@ -426,7 +426,7 @@
             this.CellImage.ErrorImage = null;
             this.CellImage.Image = global::WindowsFormsApp1.Properties.Resources.ESS_F3;
             this.CellImage.InitialImage = null;
-            this.CellImage.Location = new System.Drawing.Point(638, 12);
+            this.CellImage.Location = new System.Drawing.Point(637, 34);
             this.CellImage.Name = "CellImage";
             this.CellImage.Size = new System.Drawing.Size(434, 434);
             this.CellImage.TabIndex = 26;
@@ -436,7 +436,7 @@
             // 
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(753, 92);
+            this.button1.Location = new System.Drawing.Point(752, 114);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 31);
             this.button1.TabIndex = 27;
@@ -447,7 +447,7 @@
             // 
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(871, 92);
+            this.button2.Location = new System.Drawing.Point(870, 114);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 31);
             this.button2.TabIndex = 27;
@@ -458,7 +458,7 @@
             // 
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(753, 204);
+            this.button3.Location = new System.Drawing.Point(752, 226);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 31);
             this.button3.TabIndex = 27;
@@ -469,7 +469,7 @@
             // 
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(871, 204);
+            this.button4.Location = new System.Drawing.Point(870, 226);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 31);
             this.button4.TabIndex = 27;
@@ -480,7 +480,7 @@
             // 
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(753, 317);
+            this.button5.Location = new System.Drawing.Point(752, 339);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(92, 31);
             this.button5.TabIndex = 27;
@@ -493,7 +493,7 @@
             this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(871, 317);
+            this.button6.Location = new System.Drawing.Point(870, 339);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 31);
             this.button6.TabIndex = 27;
@@ -503,7 +503,7 @@
             // SendContinuously
             // 
             this.SendContinuously.AutoSize = true;
-            this.SendContinuously.Location = new System.Drawing.Point(12, 395);
+            this.SendContinuously.Location = new System.Drawing.Point(11, 417);
             this.SendContinuously.Name = "SendContinuously";
             this.SendContinuously.Size = new System.Drawing.Size(131, 16);
             this.SendContinuously.TabIndex = 28;
@@ -513,7 +513,7 @@
             // 
             // SendInterval
             // 
-            this.SendInterval.Location = new System.Drawing.Point(61, 417);
+            this.SendInterval.Location = new System.Drawing.Point(60, 439);
             this.SendInterval.Name = "SendInterval";
             this.SendInterval.ReadOnly = true;
             this.SendInterval.Size = new System.Drawing.Size(75, 21);
@@ -522,7 +522,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 420);
+            this.label1.Location = new System.Drawing.Point(9, 442);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 12);
             this.label1.TabIndex = 30;
@@ -530,7 +530,7 @@
             // 
             // StopBtn
             // 
-            this.StopBtn.Location = new System.Drawing.Point(147, 415);
+            this.StopBtn.Location = new System.Drawing.Point(146, 437);
             this.StopBtn.Name = "StopBtn";
             this.StopBtn.Size = new System.Drawing.Size(75, 23);
             this.StopBtn.TabIndex = 6;
@@ -542,7 +542,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1314, 485);
+            this.ClientSize = new System.Drawing.Size(1312, 517);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SendInterval);
             this.Controls.Add(this.SendContinuously);

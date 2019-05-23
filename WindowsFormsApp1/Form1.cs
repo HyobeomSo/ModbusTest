@@ -97,7 +97,7 @@ namespace WindowsFormsApp1
             Random r = new Random(); ;
             for (int i = 0; i < 101; i++)
             {
-                btnColor[i] = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+                btnColor[i] = Color.FromArgb(100, r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
                 
             }
             tempBtn[0] = button1;
@@ -146,13 +146,13 @@ namespace WindowsFormsApp1
             sp.Open();
         }
 
-        private void GetTemperture()
+        private void GetTemperature()
         {
             tempArr[tempArr.Length - 1] = cData;
             Array.Copy(tempArr, 1, tempArr, 0, tempArr.Length - 1);
         }
 
-        private void UpdateTempertureChart()
+        private void UpdateTemperatureChart()
         {
             form2.chart1.Series[0].Points.Clear();
 
@@ -224,9 +224,8 @@ namespace WindowsFormsApp1
                             cData = int.Parse(readList[num].Value, System.Globalization.NumberStyles.HexNumber) / 100.0f;
                             Invoke(new Action(delegate ()
                             {
-                                GetTemperture();
-                                UpdateTempertureChart();
-                                //form2.chart1.Series[0].Points.Add(cData);
+                                GetTemperature();
+                                UpdateTemperatureChart();
                             }));
                         }
                         Invoke(new Action(delegate ()
@@ -259,19 +258,19 @@ namespace WindowsFormsApp1
                 try
                 {
                     Thread.Sleep(intervalTime);
+                    sp.Write(conAscii);
+                    Invoke(new Action(delegate ()
+                    {
+                        ReceiveTextBox.AppendText("[송신] " + conAscii);
+                        ReceiveTextBox.ScrollToCaret();
+                    }));
+                    readList.Clear();
                 }
                 catch (ThreadInterruptedException e)
                 {
                     Thread.Sleep(100);
                     T1.Abort();
                 }
-                sp.Write(conAscii);
-                Invoke(new Action(delegate ()
-                {
-                    ReceiveTextBox.AppendText("[송신] " + conAscii);
-                    ReceiveTextBox.ScrollToCaret();
-                }));
-                readList.Clear();
             }
         }
         string conAscii;

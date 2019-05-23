@@ -53,7 +53,6 @@
             this.chart1.Size = new System.Drawing.Size(580, 354);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            this.chart1.Click += new System.EventHandler(this.Chart1_Click);
             // 
             // Form2
             // 
@@ -65,7 +64,6 @@
             this.Text = "Form2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
-            this.Shown += new System.EventHandler(this.Form2_Load);
             this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.Form2_ControlAdded);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);

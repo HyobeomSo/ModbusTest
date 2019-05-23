@@ -18,10 +18,6 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        public void Form2_Load(object sender, EventArgs e)
-        {
-        }
-
         Form1 f1;
         private void Form2_ControlAdded(object sender, ControlEventArgs e)
         {
@@ -31,11 +27,6 @@ namespace WindowsFormsApp1
         {
             f1 = (Form1)this.Owner;
             f1.num = 987654321;
-        }
-
-        private void Chart1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
