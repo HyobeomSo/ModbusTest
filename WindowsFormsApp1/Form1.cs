@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -143,7 +144,14 @@ namespace WindowsFormsApp1
             }
 
             sp.DataReceived += SP_DataReceive;
-            sp.Open();
+            try
+            {
+                sp.Open();
+            }
+            catch (IOException ioE)
+            {
+                MessageBox.Show(ioE.Message);
+            }
         }
 
         private void GetTemperature()
@@ -372,8 +380,7 @@ namespace WindowsFormsApp1
                 int len = Convert.ToInt32(M_Length.Text);
                 string s = (id.ToString("X").PadLeft(2, '0')) +
                     (M_Function.SelectedIndex + 1).ToString().PadLeft(2, '0') +
-                    (ofs <= 256 ? (ofs).ToString("X").PadLeft(4, '0') : (ofs).ToString("X").PadLeft(4, '0')) +
-                    (len <= 255 ? len.ToString("X").PadLeft(4, '0') : len.ToString("X").PadLeft(4, '0'));
+                    (ofs).ToString("X").PadLeft(4, '0') + len.ToString("X").PadLeft(4, '0');
                 string lrc = Lrc_Calc(s);
                 SendText.Text = s + lrc;
             }
